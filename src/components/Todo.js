@@ -6,7 +6,7 @@ import Item from "./Item";
 
 export default class Todo extends Component {
   state = {
-    todos: ["Tomar suco", "hahahah"],
+    todos: ["Primeira task", "Segunda task"],
     text: ""
   };
   static defaultProps = {
@@ -27,11 +27,11 @@ export default class Todo extends Component {
     array = array.filter(desc => desc !== text);
     this.setState({ todos: array });
   };
-  handleEdit = text => {
+  handleEdit = (index, text) => {
     const { todos } = this.state;
-    // console.log(todos);
-    console.log(text);
-    // this.setState({todos: todos.map(item=>item===text ? :)})
+    this.setState({
+      todos: todos.map((value, i) => (i === index ? text : value))
+    });
   };
   render() {
     return (
@@ -53,7 +53,8 @@ export default class Todo extends Component {
               text={todo}
               key={index}
               handleDelete={this.handleDelete}
-              onBlur={this.handleEdit}
+              handlerEdit={this.handleEdit}
+              position={index}
             />
           ))}
         </View>

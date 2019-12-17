@@ -13,10 +13,9 @@ export default class Item extends Component {
   };
 
   handleBlur = e => {
-    // console.log("passou");
     this.setState({ toggleEdit: !this.state.toggleEdit });
     const { text } = this.state;
-    this.props.onBlur(text);
+    this.props.handlerEdit(this.props.position, text);
   };
   handleDelete = e => {
     console.log(e);

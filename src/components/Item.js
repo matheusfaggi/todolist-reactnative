@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { CheckBox } from "react-native-elements";
 import { Input, Button, theme, withGalio } from "galio-framework";
 
 export default class Item extends Component {
@@ -17,12 +18,11 @@ export default class Item extends Component {
     const { text } = this.state;
     this.props.handlerEdit(this.props.position, text);
   };
-  handleDelete = e => {
-    console.log(e);
-  };
+
   handleChange = ({ nativeEvent: { text } }) => {
     this.setState({ text });
   };
+
   render() {
     const { toggleEdit } = this.state;
     const { handleDelete, text } = this.props;
@@ -30,9 +30,20 @@ export default class Item extends Component {
       <TouchableOpacity
         onLongPress={() => handleDelete(text)}
         onPress={this.handlePress}
+        style={style.item}
       >
         {toggleEdit ? (
-          <Text style={style.text}>{text}</Text>
+          <>
+            <CheckBox
+              title={text}
+              iconRight
+              iconType="material"
+              checkedIcon="clear"
+              uncheckedIcon="add"
+              checkedColor="red"
+            />
+            <Text style={style.text}>{text}</Text>
+          </>
         ) : (
           <Input
             onChange={this.handleChange}
@@ -58,17 +69,7 @@ const style = StyleSheet.create({
     color: "#FFF",
     fontSize: 40
   },
-  Form: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  FormInput: {
-    flexShrink: 1
-  },
-  FormButton: {
-    width: 100,
-    flexWrap: "nowrap"
+  item: {
+    textAlign: "left"
   }
 });
